@@ -11,8 +11,8 @@
   DTS:LocaleID="2057"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="15"
-  DTS:VersionGUID="{BB48712D-A521-4769-958E-03104397B94E}">
+  DTS:VersionBuild="18"
+  DTS:VersionGUID="{B1F9AFEA-1260-4E91-AD8A-0889E9455A04}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -27,7 +27,7 @@
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA3I6juYbmoECWZKnYhZUtCAAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAD6CjJ+uuqz75ZDJByxidNjVXTy/OCRyIDTgox5fQR1lwAAAAAOgAAAAAIAACAAAAAv0nS8irhOiF6D0rHC6vrPK/M6yQ8Req9KSDR7GqZxvCAAAABLlNpZWXluHrzAaDj0pkosleyQzUmbIXr709XiW7D9qkAAAAA+V5ZdEe7ZL6vvfVLjghNs1Kd06X1FATT5W50iZTGcd/ZsevuVexoO5UKbDMrar+YepQFH1Bg71T6L5lbct/iX</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA3I6juYbmoECWZKnYhZUtCAAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAAI1oSVkznnir+nupnD1dx4ulPTnkuoeSoGdfx3qQjZJAAAAAAOgAAAAAIAACAAAADTyeA1v009CpH7oxkAXCyBoyaGTS9tj6KwVXv1/4NdECAAAACEK1EF9BL4EC+Z0gZNDj9Al3bnkZBJIbpqSFt+1sNAAkAAAAB28b2JrX+IbUjLYpL2lRdmnoaBrRex0Je29s3jBYCaXyYPbaWjIQZJg55vo1AFYuEvAybwjUIJw4m2F6Ou3R74</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -91,6 +91,15 @@
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
+      DTS:DTSID="{89DA722D-E52B-4F95-B8EA-91664BFA45D3}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ProductId">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
       DTS:DTSID="{9CDF0B8C-0065-4023-88F9-A458AFE2DFD5}"
       DTS:IncludeInDebugDump="2345"
       DTS:Namespace="User"
@@ -150,44 +159,13 @@
       <DTS:Variables />
       <DTS:Executables>
         <DTS:Executable
-          DTS:refId="Package\Foreach Loop Container\Integration Sales Delete"
-          DTS:CreationName="Microsoft.ExecuteSQLTask"
-          DTS:Description="Execute SQL Task"
-          DTS:DTSID="{86AD827F-36C7-472F-BE6F-25D452D8314F}"
-          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
-          DTS:LocaleID="-1"
-          DTS:ObjectName="Integration Sales Delete"
-          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="0">
-          <DTS:Variables />
-          <DTS:ObjectData>
-            <SQLTask:SqlTaskData
-              SQLTask:Connection="{98E7B401-2587-481E-BDF4-A1ECB48F4D1C}"
-              SQLTask:IsStoredProc="True"
-              SQLTask:SqlStatementSource="dbo.Integration_Sales_Delete" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
-              <SQLTask:ParameterBinding
-                SQLTask:ParameterName="@ProductName"
-                SQLTask:DtsVariableName="User::ProductName"
-                SQLTask:ParameterDirection="Input"
-                SQLTask:DataType="16"
-                SQLTask:ParameterSize="-1" />
-              <SQLTask:ParameterBinding
-                SQLTask:ParameterName="@SalesPerson"
-                SQLTask:DtsVariableName="User::SalesPerson"
-                SQLTask:ParameterDirection="Input"
-                SQLTask:DataType="16"
-                SQLTask:ParameterSize="-1" />
-            </SQLTask:SqlTaskData>
-          </DTS:ObjectData>
-        </DTS:Executable>
-        <DTS:Executable
-          DTS:refId="Package\Foreach Loop Container\Integration Sales Ingest"
+          DTS:refId="Package\Foreach Loop Container\Integration Sales Person Ingest"
           DTS:CreationName="Microsoft.ExecuteSQLTask"
           DTS:Description="Execute SQL Task"
           DTS:DTSID="{DB284447-AD56-4779-92CE-DFDFA54D62A8}"
           DTS:ExecutableType="Microsoft.ExecuteSQLTask"
           DTS:LocaleID="-1"
-          DTS:ObjectName="Integration Sales Ingest"
+          DTS:ObjectName="Integration Sales Person Ingest"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
           DTS:ThreadHint="0">
           <DTS:Variables />
@@ -211,16 +189,47 @@
             </SQLTask:SqlTaskData>
           </DTS:ObjectData>
         </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container\Integration Staged Sales Delete"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{86AD827F-36C7-472F-BE6F-25D452D8314F}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Integration Staged Sales Delete"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{98E7B401-2587-481E-BDF4-A1ECB48F4D1C}"
+              SQLTask:IsStoredProc="True"
+              SQLTask:SqlStatementSource="dbo.Integration_Sales_Delete" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@ProductName"
+                SQLTask:DtsVariableName="User::ProductName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="16"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@SalesPerson"
+                SQLTask:DtsVariableName="User::SalesPerson"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="16"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
       </DTS:Executables>
       <DTS:PrecedenceConstraints>
         <DTS:PrecedenceConstraint
           DTS:refId="Package\Foreach Loop Container.PrecedenceConstraints[Constraint]"
           DTS:CreationName=""
           DTS:DTSID="{2E55D308-35B4-4BDC-BF83-48CFDC6D1583}"
-          DTS:From="Package\Foreach Loop Container\Integration Sales Ingest"
+          DTS:From="Package\Foreach Loop Container\Integration Sales Person Ingest"
           DTS:LogicalAnd="True"
           DTS:ObjectName="Constraint"
-          DTS:To="Package\Foreach Loop Container\Integration Sales Delete" />
+          DTS:To="Package\Foreach Loop Container\Integration Staged Sales Delete" />
       </DTS:PrecedenceConstraints>
       <DTS:ForEachVariableMappings>
         <DTS:ForEachVariableMapping
@@ -819,26 +828,38 @@
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="192,41.6"
-          Id="Package\Foreach Loop Container\Integration Sales Delete"
-          TopLeft="81.5692364461326,141.345466225995" />
+          Id="Package\Foreach Loop Container\Integration Staged Sales Delete"
+          TopLeft="83.1076980410245,141.870718770222" />
         <NodeLayout
-          Size="191.2,41.6"
-          Id="Package\Foreach Loop Container\Integration Sales Ingest"
+          Size="226.4,41.6"
+          Id="Package\Foreach Loop Container\Integration Sales Person Ingest"
           TopLeft="76.9538516614565,43.9636445263532" />
         <EdgeLayout
           Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint]"
-          TopLeft="175.061544053795,85.5636445263532">
+          TopLeft="190.153851661456,85.5636445263532">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,55.7818216996418"
+              EndConnector="-11.0461536204319,56.3070742438686"
               Start="0,0"
-              End="0,48.2818216996418">
+              End="-11.0461536204319,48.8070742438686">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,48.2818216996418" />
+                    End="0,24.1535371219343" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,24.1535371219343"
+                    Point2="0,28.1535371219343"
+                    Point3="-4,28.1535371219343" />
+                  <mssgle:LineSegment
+                    End="-7.04615362043194,28.1535371219343" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-7.04615362043194,28.1535371219343"
+                    Point2="-11.0461536204319,28.1535371219343"
+                    Point3="-11.0461536204319,32.1535371219343" />
+                  <mssgle:LineSegment
+                    End="-11.0461536204319,48.8070742438686" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -851,31 +872,43 @@
           HeaderHeight="43"
           IsExpanded="True"
           PanelSize="357.6,238.4"
-          Size="357.6,281.2"
+          Size="357.6,281.6"
           Id="Package\Foreach Loop Container"
           TopLeft="79.0769259774474,179.490914794565" />
         <NodeLayout
           Size="180.4,41.6"
           Id="Package\Stage Excel File"
-          TopLeft="44.0000016139103,19.5393946452356" />
+          TopLeft="372.717962389162,25.8424251759568" />
         <NodeLayout
           Size="139.2,41.6"
           Id="Package\Staged Sales"
-          TopLeft="296.923087814151,25.842424048887" />
+          TopLeft="165.128211185072,99.3777802406337" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="224.40000161391,43.4909093470613">
+          TopLeft="462.917962389162,67.4424251759568">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="72.5230862002405,0"
+              EndConnector="-228.18975120409,31.935355064677"
               Start="0,0"
-              End="65.0230862002405,0">
+              End="-228.18975120409,24.435355064677">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="65.0230862002405,0" />
+                    End="0,11.9676775323385" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,11.9676775323385"
+                    Point2="0,15.9676775323385"
+                    Point3="-4,15.9676775323385" />
+                  <mssgle:LineSegment
+                    End="-224.18975120409,15.9676775323385" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-224.18975120409,15.9676775323385"
+                    Point2="-228.18975120409,15.9676775323385"
+                    Point3="-228.18975120409,19.9676775323385" />
+                  <mssgle:LineSegment
+                    End="-228.18975120409,24.435355064677" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -886,30 +919,30 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="366.523087814151,67.442424048887">
+          TopLeft="234.728211185072,140.977780240634">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-108.646161836703,112.048490745678"
+              EndConnector="23.1487147923755,38.5131345539312"
               Start="0,0"
-              End="-108.646161836703,104.548490745678">
+              End="23.1487147923755,31.0131345539312">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,52.0242453728389" />
+                    End="0,15.2565672769656" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,52.0242453728389"
-                    Point2="0,56.0242453728389"
-                    Point3="-4,56.0242453728389" />
+                    Point1="0,15.2565672769656"
+                    Point2="0,19.2565672769656"
+                    Point3="4,19.2565672769656" />
                   <mssgle:LineSegment
-                    End="-104.646161836703,56.0242453728389" />
+                    End="19.1487147923755,19.2565672769656" />
                   <mssgle:CubicBezierSegment
-                    Point1="-104.646161836703,56.0242453728389"
-                    Point2="-108.646161836703,56.0242453728389"
-                    Point3="-108.646161836703,60.0242453728389" />
+                    Point1="19.1487147923755,19.2565672769656"
+                    Point2="23.1487147923755,19.2565672769656"
+                    Point3="23.1487147923755,23.2565672769656" />
                   <mssgle:LineSegment
-                    End="-108.646161836703,104.548490745678" />
+                    End="23.1487147923755,31.0131345539312" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>

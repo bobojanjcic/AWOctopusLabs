@@ -11,8 +11,8 @@
   DTS:LocaleID="2057"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="15"
-  DTS:VersionGUID="{BB48712D-A521-4769-958E-03104397B94E}">
+  DTS:VersionBuild="16"
+  DTS:VersionGUID="{3EBB3355-C439-457B-A15D-875A2058247A}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -27,7 +27,7 @@
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA3I6juYbmoECWZKnYhZUtCAAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAADshmSOUfWi4nkPSsQHH2tTApFsUXkzXpcVlbgydcsD1gAAAAAOgAAAAAIAACAAAABX5hUaNB1UaLTQDmFHwJjevP6eDPFkJ2PMPeIimpWOriAAAAD1fu/MskebQknhSXFW/FrBlJilChI42Vqf0oUEIFOqJkAAAAADgklgFdlCA8OzS2gy9IdYLZbLqTx0SDZQDM7gFy2+8lKhnCBANPvH+BtmyNUHLajvd23rWInXuk/j8msYMqEt</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA3I6juYbmoECWZKnYhZUtCAAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAA9s7QgZJn3cWXZXJ9nnko8TbvVjoUTYLRuazcw/vnLrwAAAAAOgAAAAAIAACAAAABl45MWrFhqtCm6sQ75Pfma6+w8Ngh25RrY1Dyzxw35gyAAAACvOco6osQAA7EsfiUVnHxGAChoMKADBduZHi0hrP54uUAAAACz86f9Gamw6F4heCmq/cz9+dU838Sf1Fq/ZmhgZwAMDKoV9AFnAapc52El0sxbJGApQIH9wkpDg0jSa56Fjo5v</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -88,6 +88,15 @@
       DTS:ObjectName="FileName">
       <DTS:VariableValue
         DTS:DataType="8">Sales_20170914.xls</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{89DA722D-E52B-4F95-B8EA-91664BFA45D3}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ProductId">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
