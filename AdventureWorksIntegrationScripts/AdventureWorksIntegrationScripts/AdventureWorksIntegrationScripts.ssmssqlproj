@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<SqlWorkbenchSqlProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="AdventureWorksIntegrationScripts">
+  <Items>
+    <LogicalFolder Name="Connections" Type="2" Sorted="true">
+      <Items>
+        <ConnectionNode Name="eltopo.database.windows.net:bobojanjcic">
+          <Created>2017-09-14T08:48:03.9943654+01:00</Created>
+          <Type>SQL</Type>
+          <Server>eltopo.database.windows.net</Server>
+          <UserName>bobojanjcic</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB />
+          <LoginTimeout>30</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName />
+        </ConnectionNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Queries" Type="0" Sorted="true">
+      <Items>
+        <FileNode Name="000.00 - Create DBOs.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eltopo.database.windows.net:False:bobojanjcic</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eltopo.database.windows.net</AssociatedConnSrvName>
+          <AssociatedConnUserName>bobojanjcic</AssociatedConnUserName>
+          <FullPath>000.00 - Create DBOs.sql</FullPath>
+        </FileNode>
+        <FileNode Name="000.01 - Staging Table - Create DBOs.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eltopo.database.windows.net:False:bobojanjcic</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eltopo.database.windows.net</AssociatedConnSrvName>
+          <AssociatedConnUserName>bobojanjcic</AssociatedConnUserName>
+          <FullPath>000.01 - Staging Table - Create DBOs.sql</FullPath>
+        </FileNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Miscellaneous" Type="3" Sorted="true">
+      <Items />
+    </LogicalFolder>
+  </Items>
+</SqlWorkbenchSqlProject>

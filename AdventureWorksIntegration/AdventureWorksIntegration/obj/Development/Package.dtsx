@@ -1,0 +1,996 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/13/2017 8:33:08 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="THIEF"
+  DTS:CreatorName="THIEF\boboj"
+  DTS:DTSID="{705972DA-2A6D-4FFD-9771-C1CCFB640F57}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="2057"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="15"
+  DTS:VersionGUID="{BB48712D-A521-4769-958E-03104397B94E}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[eltopo]"
+      DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      DTS:DTSID="{98E7B401-2587-481E-BDF4-A1ECB48F4D1C}"
+      DTS:ObjectName="eltopo">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=eltopo.database.windows.net;User ID=bobojanjcic;Initial Catalog=AdventureWorks2012;Persist Security Info=True;Application Name=SSIS-Package-{98E7B401-2587-481E-BDF4-A1ECB48F4D1C}eltopo.database.windows.net.AdventureWorks2012.bobojanjcic;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA3I6juYbmoECWZKnYhZUtCAAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAADshmSOUfWi4nkPSsQHH2tTApFsUXkzXpcVlbgydcsD1gAAAAAOgAAAAAIAACAAAABX5hUaNB1UaLTQDmFHwJjevP6eDPFkJ2PMPeIimpWOriAAAAD1fu/MskebQknhSXFW/FrBlJilChI42Vqf0oUEIFOqJkAAAAADgklgFdlCA8OzS2gy9IdYLZbLqTx0SDZQDM7gFy2+8lKhnCBANPvH+BtmyNUHLajvd23rWInXuk/j8msYMqEt</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SalesXLS]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{689CDD7B-CDD5-4F54-BB21-0B65DF393BFD}"
+      DTS:ObjectName="SalesXLS">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + @[$Package::Path] +"\\"+ @[User::FileName] + ";Extended Properties=\"Excel 8.0;HDR=YES\";"</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Dev\AdventureWorksIntegration\Sales_20170914.xls;Extended Properties=&quot;EXCEL 8.0;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:Description="Common path"
+      DTS:DTSID="{E7BD86E8-1459-45BE-95F1-3D32E1F57DA9}"
+      DTS:ObjectName="Path"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">C:\Dev\AdventureWorksIntegration</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{678AE470-ECD0-43AE-B7E6-E514D534B3A1}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="LEFT(REPLACE((DT_WSTR, 30) GETUTCDATE(), &quot;-&quot;, &quot;&quot;), 8)"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="BusinessDay">
+      <DTS:VariableValue
+        DTS:DataType="8">20170914</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{FCB57294-A2EC-4F11-9150-E274DF0C6612}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FileBusinessName">
+      <DTS:VariableValue
+        DTS:DataType="8">Sales</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{D16F26BF-9196-4885-B654-69B3DB8E6F59}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::FileBusinessName]+&quot;_&quot;+ @[User::BusinessDay]+&quot;.xls&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FileName">
+      <DTS:VariableValue
+        DTS:DataType="8">Sales_20170914.xls</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{9CDF0B8C-0065-4023-88F9-A458AFE2DFD5}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ProductName">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{CEFBA67C-407C-4FFF-9783-04350D00C0B8}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="SalesObject">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{A8D788A6-38FE-4794-98D9-110319389C36}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SalesPerson">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Foreach Loop Container"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:Description="Foreach Loop Container"
+      DTS:DTSID="{BC4C6D25-5814-485A-AFC3-D94E71C0F9C0}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Foreach Loop Container">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="Microsoft.ForEachADOEnumerator"
+        DTS:DTSID="{E1CD76A0-E6C2-4E31-BBDA-E9D5DC4A56E0}"
+        DTS:ObjectName="{E1CD76A0-E6C2-4E31-BBDA-E9D5DC4A56E0}">
+        <DTS:ObjectData>
+          <FEEADO
+            EnumType="EnumerateRowsInFirstTable"
+            VarName="User::SalesObject" />
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container\Integration Sales Delete"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{86AD827F-36C7-472F-BE6F-25D452D8314F}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Integration Sales Delete"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{98E7B401-2587-481E-BDF4-A1ECB48F4D1C}"
+              SQLTask:IsStoredProc="True"
+              SQLTask:SqlStatementSource="dbo.Integration_Sales_Delete" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@ProductName"
+                SQLTask:DtsVariableName="User::ProductName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="16"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@SalesPerson"
+                SQLTask:DtsVariableName="User::SalesPerson"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="16"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container\Integration Sales Ingest"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{DB284447-AD56-4779-92CE-DFDFA54D62A8}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Integration Sales Ingest"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{98E7B401-2587-481E-BDF4-A1ECB48F4D1C}"
+              SQLTask:IsStoredProc="True"
+              SQLTask:SqlStatementSource="dbo.Integration_Sales_Ingest" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@ProductName"
+                SQLTask:DtsVariableName="User::ProductName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="16"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@SalesPerson"
+                SQLTask:DtsVariableName="User::SalesPerson"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="16"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Foreach Loop Container.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{2E55D308-35B4-4BDC-BF83-48CFDC6D1583}"
+          DTS:From="Package\Foreach Loop Container\Integration Sales Ingest"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Foreach Loop Container\Integration Sales Delete" />
+      </DTS:PrecedenceConstraints>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{62712A80-2A66-4BF6-8601-96D40D84DB46}"
+          DTS:ObjectName="{62712A80-2A66-4BF6-8601-96D40D84DB46}"
+          DTS:ValueIndex="1"
+          DTS:VariableName="User::ProductName" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{36698B9D-A340-4F30-8AA9-5B0712E9726B}"
+          DTS:ObjectName="{36698B9D-A340-4F30-8AA9-5B0712E9726B}"
+          DTS:ValueIndex="9"
+          DTS:VariableName="User::SalesPerson" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Stage Excel File"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{45391ACB-4337-4F94-B4D5-11758EFD5B45}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Stage Excel File"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Stage Excel File\Excel Source"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Excel Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Excel Source"
+              name="Excel Source"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">Sales$</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mapping from parameters in the SQL command to variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Stage Excel File\Excel Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SalesXLS]"
+                  connectionManagerRefId="Package.ConnectionManagers[SalesXLS]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output]"
+                  name="Excel Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Order QTY]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].ExternalColumns[Order QTY]"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Order QTY]"
+                      name="Order QTY"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Product Name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].ExternalColumns[Product Name]"
+                      length="255"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Product Name]"
+                      name="Product Name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Unit Price]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].ExternalColumns[Unit Price]"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Unit Price]"
+                      name="Unit Price"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Unit Price Discount]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].ExternalColumns[Unit Price Discount]"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Unit Price Discount]"
+                      name="Unit Price Discount"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Line Total]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].ExternalColumns[Line Total]"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Line Total]"
+                      name="Line Total"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Customer]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].ExternalColumns[Customer]"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Customer]"
+                      name="Customer"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Billing and Shipping Address]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].ExternalColumns[Billing and Shipping Address]"
+                      length="255"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Billing and Shipping Address]"
+                      name="Billing and Shipping Address"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Currency]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].ExternalColumns[Currency]"
+                      length="255"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Currency]"
+                      name="Currency"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[FX Rate]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].ExternalColumns[FX Rate]"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[FX Rate]"
+                      name="FX Rate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Sales Territory]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].ExternalColumns[Sales Territory]"
+                      length="255"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Sales Territory]"
+                      name="Sales Territory"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Sales Person]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].ExternalColumns[Sales Person]"
+                      length="255"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Sales Person]"
+                      name="Sales Person"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].ExternalColumns[Order QTY]"
+                      dataType="r8"
+                      name="Order QTY" />
+                    <externalMetadataColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].ExternalColumns[Product Name]"
+                      dataType="wstr"
+                      length="255"
+                      name="Product Name" />
+                    <externalMetadataColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].ExternalColumns[Unit Price]"
+                      dataType="r8"
+                      name="Unit Price" />
+                    <externalMetadataColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].ExternalColumns[Unit Price Discount]"
+                      dataType="r8"
+                      name="Unit Price Discount" />
+                    <externalMetadataColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].ExternalColumns[Line Total]"
+                      dataType="r8"
+                      name="Line Total" />
+                    <externalMetadataColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].ExternalColumns[Customer]"
+                      dataType="r8"
+                      name="Customer" />
+                    <externalMetadataColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].ExternalColumns[Billing and Shipping Address]"
+                      dataType="wstr"
+                      length="255"
+                      name="Billing and Shipping Address" />
+                    <externalMetadataColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].ExternalColumns[Currency]"
+                      dataType="wstr"
+                      length="255"
+                      name="Currency" />
+                    <externalMetadataColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].ExternalColumns[FX Rate]"
+                      dataType="r8"
+                      name="FX Rate" />
+                    <externalMetadataColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].ExternalColumns[Sales Territory]"
+                      dataType="wstr"
+                      length="255"
+                      name="Sales Territory" />
+                    <externalMetadataColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].ExternalColumns[Sales Person]"
+                      dataType="wstr"
+                      length="255"
+                      name="Sales Person" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Error Output]"
+                  isErrorOut="true"
+                  name="Excel Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Error Output].Columns[Order QTY]"
+                      dataType="r8"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Error Output].Columns[Order QTY]"
+                      name="Order QTY" />
+                    <outputColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Error Output].Columns[Product Name]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Error Output].Columns[Product Name]"
+                      name="Product Name" />
+                    <outputColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Error Output].Columns[Unit Price]"
+                      dataType="r8"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Error Output].Columns[Unit Price]"
+                      name="Unit Price" />
+                    <outputColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Error Output].Columns[Unit Price Discount]"
+                      dataType="r8"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Error Output].Columns[Unit Price Discount]"
+                      name="Unit Price Discount" />
+                    <outputColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Error Output].Columns[Line Total]"
+                      dataType="r8"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Error Output].Columns[Line Total]"
+                      name="Line Total" />
+                    <outputColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Error Output].Columns[Customer]"
+                      dataType="r8"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Error Output].Columns[Customer]"
+                      name="Customer" />
+                    <outputColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Error Output].Columns[Billing and Shipping Address]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Error Output].Columns[Billing and Shipping Address]"
+                      name="Billing and Shipping Address" />
+                    <outputColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Error Output].Columns[Currency]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Error Output].Columns[Currency]"
+                      name="Currency" />
+                    <outputColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Error Output].Columns[FX Rate]"
+                      dataType="r8"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Error Output].Columns[FX Rate]"
+                      name="FX Rate" />
+                    <outputColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Error Output].Columns[Sales Person]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Error Output].Columns[Sales Person]"
+                      name="Sales Person" />
+                    <outputColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Error Output].Columns[Sales Territory]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Error Output].Columns[Sales Territory]"
+                      name="Sales Territory" />
+                    <outputColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Stage Excel File\Staged Sales"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination."
+              name="Staged Sales"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The Destination database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"dbo"."Staged_Sales"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows per batch. The default is 0 which uses the same size as SSIS internal buffer. "
+                  expressionType="Notify"
+                  name="BatchSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out. A value of 0 indicates infinite time-out. "
+                  expressionType="Notify"
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether to use the SqlBulkCopy interface to improve the performance of bulk insert operations. Only certain providers support this interface."
+                  expressionType="Notify"
+                  name="UseBulkInsertWhenPossible">true</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.ADONETDestination</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Stage Excel File\Staged Sales.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[eltopo]"
+                  connectionManagerRefId="Package.ConnectionManagers[eltopo]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input]"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ADO NET Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].Columns[Order QTY]"
+                      cachedDataType="r8"
+                      cachedName="Order QTY"
+                      externalMetadataColumnId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].ExternalColumns[Order QTY]"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Order QTY]" />
+                    <inputColumn
+                      refId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].Columns[Product Name]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Product Name"
+                      externalMetadataColumnId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].ExternalColumns[Product Name]"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Product Name]" />
+                    <inputColumn
+                      refId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].Columns[Unit Price]"
+                      cachedDataType="r8"
+                      cachedName="Unit Price"
+                      externalMetadataColumnId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].ExternalColumns[Unit Price]"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Unit Price]" />
+                    <inputColumn
+                      refId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].Columns[Unit Price Discount]"
+                      cachedDataType="r8"
+                      cachedName="Unit Price Discount"
+                      externalMetadataColumnId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].ExternalColumns[Unit Price Discount]"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Unit Price Discount]" />
+                    <inputColumn
+                      refId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].Columns[Line Total]"
+                      cachedDataType="r8"
+                      cachedName="Line Total"
+                      externalMetadataColumnId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].ExternalColumns[Line Total]"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Line Total]" />
+                    <inputColumn
+                      refId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].Columns[Customer]"
+                      cachedDataType="r8"
+                      cachedName="Customer"
+                      externalMetadataColumnId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].ExternalColumns[Customer]"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Customer]" />
+                    <inputColumn
+                      refId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].Columns[Billing and Shipping Address]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Billing and Shipping Address"
+                      externalMetadataColumnId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].ExternalColumns[Billing and Shipping Address]"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Billing and Shipping Address]" />
+                    <inputColumn
+                      refId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].Columns[Currency]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Currency"
+                      externalMetadataColumnId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].ExternalColumns[Currency]"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Currency]" />
+                    <inputColumn
+                      refId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].Columns[FX Rate]"
+                      cachedDataType="r8"
+                      cachedName="FX Rate"
+                      externalMetadataColumnId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].ExternalColumns[FX Rate]"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[FX Rate]" />
+                    <inputColumn
+                      refId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].Columns[Sales Territory]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Sales Territory"
+                      externalMetadataColumnId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].ExternalColumns[Sales Territory]"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Sales Territory]" />
+                    <inputColumn
+                      refId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].Columns[Sales Person]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Sales Person"
+                      externalMetadataColumnId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].ExternalColumns[Sales Person]"
+                      lineageId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output].Columns[Sales Person]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].ExternalColumns[Order QTY]"
+                      dataType="r8"
+                      name="Order QTY" />
+                    <externalMetadataColumn
+                      refId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].ExternalColumns[Product Name]"
+                      dataType="wstr"
+                      length="255"
+                      name="Product Name" />
+                    <externalMetadataColumn
+                      refId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].ExternalColumns[Unit Price]"
+                      dataType="numeric"
+                      name="Unit Price"
+                      precision="19"
+                      scale="255" />
+                    <externalMetadataColumn
+                      refId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].ExternalColumns[Unit Price Discount]"
+                      dataType="numeric"
+                      name="Unit Price Discount"
+                      precision="19"
+                      scale="255" />
+                    <externalMetadataColumn
+                      refId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].ExternalColumns[Line Total]"
+                      dataType="numeric"
+                      name="Line Total"
+                      precision="19"
+                      scale="255" />
+                    <externalMetadataColumn
+                      refId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].ExternalColumns[Customer]"
+                      dataType="wstr"
+                      length="255"
+                      name="Customer" />
+                    <externalMetadataColumn
+                      refId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].ExternalColumns[Billing and Shipping Address]"
+                      dataType="wstr"
+                      length="255"
+                      name="Billing and Shipping Address" />
+                    <externalMetadataColumn
+                      refId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].ExternalColumns[Currency]"
+                      dataType="wstr"
+                      length="255"
+                      name="Currency" />
+                    <externalMetadataColumn
+                      refId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].ExternalColumns[FX Rate]"
+                      dataType="numeric"
+                      name="FX Rate"
+                      precision="19"
+                      scale="255" />
+                    <externalMetadataColumn
+                      refId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].ExternalColumns[Sales Person]"
+                      dataType="wstr"
+                      length="255"
+                      name="Sales Person" />
+                    <externalMetadataColumn
+                      refId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input].ExternalColumns[Sales Territory]"
+                      dataType="wstr"
+                      length="255"
+                      name="Sales Territory" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Stage Excel File\Staged Sales.Outputs[ADO NET Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="ADO NET Destination Error Output"
+                  synchronousInputId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Stage Excel File\Staged Sales.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Stage Excel File\Staged Sales.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Stage Excel File\Staged Sales.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Stage Excel File\Staged Sales.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Stage Excel File.Paths[Excel Source Output]"
+              endId="Package\Stage Excel File\Staged Sales.Inputs[ADO NET Destination Input]"
+              name="Excel Source Output"
+              startId="Package\Stage Excel File\Excel Source.Outputs[Excel Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Staged Sales"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{CE40870B-4070-496B-B32B-4CF9062820B8}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Staged Sales"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{98E7B401-2587-481E-BDF4-A1ECB48F4D1C}"
+          SQLTask:SqlStatementSource="SELECT * FROM dbo.Staged_Sales"
+          SQLTask:ResultType="ResultSetType_Rowset" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="0"
+            SQLTask:DtsVariableName="User::SalesObject" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{E579B10E-FAE6-44B6-9683-9546F610F593}"
+      DTS:From="Package\Stage Excel File"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Staged Sales" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{EDC51EFC-1700-41A0-A037-39F82A151A70}"
+      DTS:From="Package\Staged Sales"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Foreach Loop Container" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="192,41.6"
+          Id="Package\Foreach Loop Container\Integration Sales Delete"
+          TopLeft="81.5692364461326,141.345466225995" />
+        <NodeLayout
+          Size="191.2,41.6"
+          Id="Package\Foreach Loop Container\Integration Sales Ingest"
+          TopLeft="76.9538516614565,43.9636445263532" />
+        <EdgeLayout
+          Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint]"
+          TopLeft="175.061544053795,85.5636445263532">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,55.7818216996418"
+              Start="0,0"
+              End="0,48.2818216996418">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,48.2818216996418" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="357.6,238.4"
+          Size="357.6,281.2"
+          Id="Package\Foreach Loop Container"
+          TopLeft="79.0769259774474,179.490914794565" />
+        <NodeLayout
+          Size="180.4,41.6"
+          Id="Package\Stage Excel File"
+          TopLeft="44.0000016139103,19.5393946452356" />
+        <NodeLayout
+          Size="139.2,41.6"
+          Id="Package\Staged Sales"
+          TopLeft="296.923087814151,25.842424048887" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="224.40000161391,43.4909093470613">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="72.5230862002405,0"
+              Start="0,0"
+              End="65.0230862002405,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="65.0230862002405,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="366.523087814151,67.442424048887">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-108.646161836703,112.048490745678"
+              Start="0,0"
+              End="-108.646161836703,104.548490745678">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.0242453728389" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,52.0242453728389"
+                    Point2="0,56.0242453728389"
+                    Point3="-4,56.0242453728389" />
+                  <mssgle:LineSegment
+                    End="-104.646161836703,56.0242453728389" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-104.646161836703,56.0242453728389"
+                    Point2="-108.646161836703,56.0242453728389"
+                    Point3="-108.646161836703,60.0242453728389" />
+                  <mssgle:LineSegment
+                    End="-108.646161836703,104.548490745678" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Stage Excel File">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="139.2,41.6"
+          Id="Package\Stage Excel File\Staged Sales"
+          TopLeft="109.307696317075,111.800004038666" />
+        <NodeLayout
+          Size="130,41.6"
+          Id="Package\Stage Excel File\Excel Source"
+          TopLeft="80.307695253361,14.6545459839267" />
+        <EdgeLayout
+          Id="Package\Stage Excel File.Paths[Excel Source Output]"
+          TopLeft="145.307695253361,56.2545459839267">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="33.6000010637137,55.5454580547397"
+              Start="0,0"
+              End="33.6000010637137,48.0454580547397">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.7727290273699" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.7727290273699"
+                    Point2="0,27.7727290273699"
+                    Point3="4,27.7727290273699" />
+                  <mssgle:LineSegment
+                    End="29.6000010637137,27.7727290273699" />
+                  <mssgle:CubicBezierSegment
+                    Point1="29.6000010637137,27.7727290273699"
+                    Point2="33.6000010637137,27.7727290273699"
+                    Point3="33.6000010637137,31.7727290273699" />
+                  <mssgle:LineSegment
+                    End="33.6000010637137,48.0454580547397" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Stage Excel File\Excel Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Stage Excel File\Staged Sales">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
